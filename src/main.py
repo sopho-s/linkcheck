@@ -2,12 +2,14 @@ import linkchecker
 import asyncio
 from mitmproxy import proxy, options
 from mitmproxy.tools.dump import DumpMaster
+import threading
+import installer
 
 async def start_proxy():
-    opts = options.Options(listen_host="127.0.0.1", listen_port=8000)
+    print("Initiating proxy...")
+    opts = options.Options(listen_host="0.0.0.0", listen_port=1234)
     proxy = DumpMaster(opts)
     proxy.addons.add(linkchecker.Interceptor())
-
     try:
         print("Starting mitmproxy...")
         await proxy.run()  # Run inside the event loop
@@ -16,7 +18,10 @@ async def start_proxy():
         proxy.shutdown()
 
 def main():
+    thread = threading.Thread(target=installer.installserver, args=(("0.0.0.0", 4321),)) 
+    thread.start()
     asyncio.run(start_proxy())
+    thread.join()
 
 
 if __name__ == "__main__":

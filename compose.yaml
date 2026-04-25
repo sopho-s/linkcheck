@@ -3,8 +3,11 @@ name: linkchecker
 services:
   checker:
     build: .
+    ports:
+      - 4321:4321
+      - 1234:1234
   storage:
-    image: mysql:latest
+    image: postgres:latest
     environment:
-      MYSQL_ROOT_PASSWORD: somesecurepassword
-      MYSQL_DATABASE: routerdata
+      POSTGRES_PASSWORD: somesecurepassword
+      POSTGRES_DB: routerdata
