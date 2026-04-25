@@ -1,0 +1,10 @@
+name: linkchecker
+
+services:
+  checker:
+    build: .
+  storage:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: somesecurepassword
+      MYSQL_DATABASE: routerdata

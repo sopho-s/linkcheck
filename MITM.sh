@@ -8,3 +8,5 @@ ls ~/.mitmproxy/
 
 cd ~/.mitmproxy
 python3 -m http.server 8888
+
+LUCI plugins
